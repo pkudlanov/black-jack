@@ -30,7 +30,7 @@ class Deck():
         deck_comp = ''
         num = 1
         for card in self.deck:
-            deck_comp += '\n' + card.__str__()
+            deck_comp += f'\n {num} ' + card.__str__()
             num += 1
         return 'The deck has: ' + deck_comp
 
@@ -43,4 +43,5 @@ class Deck():
 
 
 test_deck = Deck()
+test_deck.shuffle()
 print(test_deck)
