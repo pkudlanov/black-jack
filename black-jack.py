@@ -28,10 +28,8 @@ class Deck():
 
     def __str__(self):
         deck_comp = ''
-        num = 1
         for card in self.deck:
-            deck_comp += f'\n {num} ' + card.__str__()
-            num += 1
+            deck_comp += '\n' + card.__str__()
         return 'The deck has: ' + deck_comp
 
     def shuffle(self):
@@ -42,6 +40,48 @@ class Deck():
         return single_card
 
 
+class Hand():
+
+    def __init__(self):
+        self.cards = []
+        self.value = 0
+        self.aces = 0
+
+    def add_card(self, card):
+        self.cards.append(card)
+        self.value += values[card.rank]
+
+        if card.rank == 'Ace':
+            self.aces += 1
+
+    def adjust_for_ace(self):
+
+        while self.value > 21 and self.aces:
+            self.value -= 10
+            self.aces -= 1
+
+
+class Chips():
+
+    def __init__(self, total=100):
+        self.total = total
+        self.bet = 0
+
+    def win_bet(self):
+        self.total += self.bet
+
+    def lose_bet(self):
+        self.total -= self.bet
+
+
 test_deck = Deck()
 test_deck.shuffle()
-print(test_deck)
+
+test_player = Hand()
+pulled_card = test_deck.deal()
+print(pulled_card)
+test_player.add_card(pulled_card)
+print(test_player.value)
+
+test_player.add_card(test_deck.deal())
+print(test_player.value)
